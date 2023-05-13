@@ -11,6 +11,10 @@ from omegaconf import DictConfig
 from torch.utils.data import Dataset
 from torch_geometric.data import DataLoader
 
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+
 from cdvae.common.utils import PROJECT_ROOT
 from cdvae.common.data_utils import get_scaler_from_data_list
 
@@ -139,7 +143,7 @@ class CrystDataModule(pl.LightningDataModule):
         )
 
 
-@hydra.main(config_path=str(PROJECT_ROOT / "conf"), config_name="default")
+@hydra.main(config_path=str(PROJECT_ROOT) + "/conf", config_name="default")
 def main(cfg: omegaconf.DictConfig):
     datamodule: pl.LightningDataModule = hydra.utils.instantiate(
         cfg.data.datamodule, _recursive_=False

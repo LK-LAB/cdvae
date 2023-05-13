@@ -41,7 +41,7 @@ class BaseModule(pl.LightningModule):
         scheduler = hydra.utils.instantiate(
             self.hparams.optim.lr_scheduler, optimizer=opt
         )
-        return {"optimizer": opt, "lr_scheduler": scheduler, "monitor": "val_loss"}
+        return {"optimizer": opt, "lr_scheduler": {"scheduler":scheduler, "monitor": "val_loss"}}
 
 
 class CrystGNN_Supervise(BaseModule):
@@ -79,7 +79,7 @@ class CrystGNN_Supervise(BaseModule):
 
         self.log_dict(
             log_dict,
-            on_step=False,
+            on_step=True,
             on_epoch=True,
             prog_bar=True,
         )
@@ -540,7 +540,7 @@ class CDVAE(BaseModule):
         log_dict, loss = self.compute_stats(batch, outputs, prefix='val')
         self.log_dict(
             log_dict,
-            on_step=False,
+            on_step=True,
             on_epoch=True,
             prog_bar=True,
         )
@@ -632,7 +632,7 @@ class CDVAE(BaseModule):
         return log_dict, loss
 
 
-@hydra.main(config_path=str(PROJECT_ROOT / "conf"), config_name="default")
+@hydra.main(config_path=str(PROJECT_ROOT) + "/conf", config_name="default")
 def main(cfg: omegaconf.DictConfig):
     model: pl.LightningModule = hydra.utils.instantiate(
         cfg.model,

@@ -15,9 +15,14 @@ from pytorch_lightning.callbacks import (
     ModelCheckpoint,
 )
 from pytorch_lightning.loggers import WandbLogger
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 from cdvae.common.utils import log_hyperparameters, PROJECT_ROOT
+import warnings
 
+warnings.filterwarnings(action='ignore') 
 
 def build_callbacks(cfg: DictConfig) -> List[Callback]:
     callbacks: List[Callback] = []
@@ -58,6 +63,7 @@ def build_callbacks(cfg: DictConfig) -> List[Callback]:
 
 
 def run(cfg: DictConfig) -> None:
+    print(cfg)
     """
     Generic train loop
 
@@ -144,7 +150,6 @@ def run(cfg: DictConfig) -> None:
         callbacks=callbacks,
         deterministic=cfg.train.deterministic,
         check_val_every_n_epoch=cfg.logging.val_check_interval,
-        progress_bar_refresh_rate=cfg.logging.progress_bar_refresh_rate,
         resume_from_checkpoint=ckpt,
         **cfg.train.pl_trainer,
     )
@@ -161,7 +166,7 @@ def run(cfg: DictConfig) -> None:
         wandb_logger.experiment.finish()
 
 
-@hydra.main(config_path=str(PROJECT_ROOT / "conf"), config_name="default")
+@hydra.main(config_path=str(PROJECT_ROOT) + "/conf", config_name="default")
 def main(cfg: omegaconf.DictConfig):
     run(cfg)
 
