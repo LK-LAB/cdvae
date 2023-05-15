@@ -1,10 +1,9 @@
 """This module is adapted from https://github.com/Open-Catalyst-Project/ocp/tree/master/ocpmodels/models
 """
-from typing import Callable, Dict, Optional, Tuple, Union
+
 import torch
 import torch.nn as nn
 from torch_scatter import scatter
-#from torch_geometric.nn.acts import swish
 from torch_geometric.nn.resolver import activation_resolver
 from torch_geometric.nn.inits import glorot_orthogonal
 from torch_geometric.nn.models.dimenet import (
@@ -14,9 +13,6 @@ from torch_geometric.nn.models.dimenet import (
     SphericalBasisLayer,
 )
 from torch_sparse import SparseTensor
-import os
-import sys
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 
 from cdvae.common.data_utils import (
     get_pbc_distances,
@@ -44,8 +40,7 @@ class InteractionPPBlock(torch.nn.Module):
         act='silu',
     ):
         super(InteractionPPBlock, self).__init__()
-        act = activation_resolver(act)
-        self.act = act
+        self.act = activation_resolver(act)
 
         # Transformations of Bessel and spherical basis representations.
         self.lin_rbf1 = nn.Linear(num_radial, basis_emb_size, bias=False)
@@ -144,8 +139,7 @@ class OutputPPBlock(torch.nn.Module):
         act='silu',
     ):
         super(OutputPPBlock, self).__init__()
-        act = activation_resolver(act)
-        self.act = act
+        self.act = activation_resolver(act)
 
         self.lin_rbf = nn.Linear(num_radial, hidden_channels, bias=False)
         self.lin_up = nn.Linear(hidden_channels, out_emb_channels, bias=True)
@@ -218,6 +212,7 @@ class DimeNetPlusPlus(torch.nn.Module):
         act='silu',
     ):
         super(DimeNetPlusPlus, self).__init__()
+
         act = activation_resolver(act)
         self.cutoff = cutoff
 
