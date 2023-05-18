@@ -33,7 +33,7 @@ It has several main functionalities:
 
 The easiest way to install prerequisites is via [conda](https://conda.io/docs/index.html).
 
-### GPU machines
+### GPU machines(Deprecated)
 
 Run the following command to install the environment:
 ```bash
@@ -43,7 +43,7 @@ Activate the conda environment with `conda activate cdvae`.
 
 Install this package with `pip install -e .`.
 
-### Faster conda installation
+### Faster conda installation (Deprecated)
 
 We've noticed that the above command to install the dependencies from `env.yml` can take very long. A faster way to install the required packages is:
 ```bash
@@ -59,8 +59,8 @@ pip install -e .
 ### CPU-only machines
 
 ```bash
-conda env create -f env.cpu.yml
-conda activate cdvae
+conda env create -f environment.yml
+conda activate speed
 pip install -e .
 ```
 
