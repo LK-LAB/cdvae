@@ -105,7 +105,6 @@ dependencies:
       - pyasn1-modules==0.3.0
       - pybtex==0.24.0
       - pydantic==1.10.7
-      - pyg-lib==0.2.0+pt20cpu
       - pymatgen==2023.5.10
       - pyparsing==3.0.9
       - python-dateutil==2.8.2
@@ -137,11 +136,7 @@ dependencies:
       - termcolor==2.3.0
       - threadpoolctl==3.1.0
       - torch==2.0.1+cpu
-      - torch-cluster==1.6.1+pt20cpu
       - torch-geometric==2.3.1
-      - torch-scatter==2.1.1+pt20cpu
-      - torch-sparse==0.6.17+pt20cpu
-      - torch-spline-conv==1.2.2+pt20cpu
       - torchaudio==2.0.2+cpu
       - torchmetrics==0.11.4
       - torchvision==0.15.2+cpu
